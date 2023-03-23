@@ -16,9 +16,9 @@ namespace json {
         if (stream.eof())
             throw std::runtime_error("No more tokens!");
 
-        char c = ' ';
+        char c = getCharacter();
         while (c == ' ' || c == '\n'){
-            stream.get(c);
+            c = getCharacter();
         }
 
         Token token;
@@ -111,7 +111,20 @@ namespace json {
     }
 
     bool Tokenizer::TokensEnded() {
-        return stream.eof();
+        std::streamoff position = stream.tellg();
+
+        char c = getCharacter();
+        while (!stream.eof() && c == ' ' || c == '\n'){
+            position = stream.tellg();
+            c = getCharacter();
+        }
+
+        if (stream.eof())
+            return true;
+        else
+            stream.seekg(position);
+
+        return false;
     }
 
     char Tokenizer::getCharacter() {

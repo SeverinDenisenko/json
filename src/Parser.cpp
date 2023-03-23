@@ -11,6 +11,9 @@ namespace json {
 
     void Parser::Parse() {
         root = parseToken();
+
+        if (!tokenizer.TokensEnded())
+            throw std::runtime_error("Bad json structure!");
     }
 
     void Parser::parseNull() {
@@ -119,7 +122,6 @@ namespace json {
                 break;
             default:
                 throw std::runtime_error("Invalid sequence of tokens!");
-                break;
         }
 
         return value;

@@ -9,7 +9,7 @@ int main(){
     json::Parser parser("tests/test.json");
     parser.Parse();
 
-    std::cout << parser.root.GetObject()["web-app"].GetObject()["servlet"].GetArray()[0].GetObject()["servlet-class"].GetString() << std::endl;
+    std::cout << parser.root.GetObject()["web-app"].GetObject()["servlet"].GetArray()[0].GetObject()["init-param"].GetObject()["cachePackageTagsTrack"].GetNumber() << std::endl;
 
     return 0;
 }

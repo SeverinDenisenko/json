@@ -37,11 +37,11 @@ namespace json{
 
         ValueType GetType();
 
-        JsonObject GetObject();
-        JsonArray GetArray();
-        JsonNumber GetNumber();
-        JsonString GetString();
-        JsonBoolean GetBoolean();
+        JsonObject& GetObject();
+        JsonArray& GetArray();
+        JsonNumber& GetNumber();
+        JsonString& GetString();
+        JsonBoolean& GetBoolean();
 
         void Set(JsonObject object);
         void Set(JsonArray array);

@@ -58,35 +58,35 @@ json::JsonValue::ValueType json::JsonValue::GetType() {
     return type;
 }
 
-json::JsonObject json::JsonValue::GetObject() {
+json::JsonObject& json::JsonValue::GetObject() {
     if (type != ValueType::OBJECT)
         throw std::runtime_error("Can't get object!");
 
     return std::get<JsonObject>(value);
 }
 
-json::JsonArray json::JsonValue::GetArray() {
+json::JsonArray& json::JsonValue::GetArray() {
     if (type != ValueType::ARRAY)
         throw std::runtime_error("Can't get array!");
 
     return std::get<JsonArray>(value);
 }
 
-json::JsonNumber json::JsonValue::GetNumber() {
+json::JsonNumber& json::JsonValue::GetNumber() {
     if (type != ValueType::NUMBER)
         throw std::runtime_error("Can't get number!");
 
     return std::get<JsonNumber>(value);
 }
 
-json::JsonString json::JsonValue::GetString() {
+json::JsonString& json::JsonValue::GetString() {
     if (type != ValueType::STRING)
         throw std::runtime_error("Can't get string!");
 
     return std::get<JsonString>(value);
 }
 
-json::JsonBoolean json::JsonValue::GetBoolean() {
+json::JsonBoolean& json::JsonValue::GetBoolean() {
     if (type != ValueType::BOOLEAN)
         throw std::runtime_error("Can't get boolean!");
 

@@ -39,7 +39,7 @@ namespace json {
             case ',':
                 token.type = Token::COMMA;
                 break;
-            case ';':
+            case ':':
                 token.type = Token::COLON;
                 break;
             case '"':
@@ -91,9 +91,9 @@ namespace json {
                     throw std::runtime_error("Cannot create token!");
 
                 token.type = Token::NUMBER;
+                token.value += c;
 
-                while (true)
-                {
+                while (true) {
                     auto prevPosition = stream.tellg();
                     c = getCharacter();
 

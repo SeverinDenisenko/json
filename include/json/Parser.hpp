@@ -18,15 +18,17 @@ namespace json {
 
         void Parse();
 
+        JsonValue root;
     private:
         JsonObject parseObject();
         JsonArray parseArray();
         JsonNumber parseNumber();
         JsonString parseString();
         JsonBoolean parseBoolean();
-        void ParseNull();
+        void parseNull();
 
-        std::shared_ptr<JsonValue> root;
+        JsonValue parseToken();
+
         Tokenizer tokenizer;
     };
 

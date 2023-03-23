@@ -11,8 +11,8 @@
 namespace json{
     class JsonValue;
 
-    using JsonObject = std::map<std::string, std::shared_ptr<JsonValue>>;
-    using JsonArray = std::vector<std::shared_ptr<JsonValue>>;
+    using JsonObject = std::map<std::string, JsonValue>;
+    using JsonArray = std::vector<JsonValue>;
     using JsonNumber = double;
     using JsonString = std::string;
     using JsonBoolean = bool;

@@ -29,7 +29,7 @@ namespace json {
                     if (i != value.GetObject().end())
                         stream << ",\n";
                 }
-                stream << "\n{\n";
+                stream << "}\n";
                 break;
             case JsonValue::ValueType::ARRAY:
                 stream << "[\n";

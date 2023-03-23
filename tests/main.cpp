@@ -4,12 +4,13 @@
 
 #include <iostream>
 #include "json/Parser.hpp"
+#include "json/Writer.hpp"
 
 int main(){
     json::Parser parser("tests/test.json");
     parser.Parse();
-
-    std::cout << parser.root.GetObject()["web-app"].GetObject()["servlet"].GetArray()[0].GetObject()["init-param"].GetObject()["cachePackageTagsTrack"].GetNumber() << std::endl;
+    json::Writer writer("tests/out.json");
+    writer.Write(parser.root);
 
     return 0;
 }

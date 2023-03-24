@@ -3,18 +3,19 @@
 //
 
 #include "json/Tokenizer.hpp"
+#include "json/Exception.hpp"
 
 namespace json {
     Tokenizer::Tokenizer(const std::string& filename) {
         stream.open(filename);
 
         if (!stream)
-            throw std::runtime_error("Can't open file!");
+            throw Exception("Can't open file!");
     }
 
     Token Tokenizer::GetToken() {
         if (stream.eof())
-            throw std::runtime_error("No more tokens!");
+            throw Exception("No more tokens!");
 
         char c = getCharacter();
         while (c == ' ' || c == '\n'){
@@ -88,7 +89,7 @@ namespace json {
                 break;
             default:
                 if (c != '-' && (c <= '0' || c >= '9'))
-                    throw std::runtime_error("Cannot create token!");
+                    throw Exception("Cannot create token!");
 
                 token.type = Token::NUMBER;
                 token.value += c;
@@ -131,7 +132,7 @@ namespace json {
         char c;
 
         if (stream.eof())
-            throw std::runtime_error("Unexpected end of file!");
+            throw Exception("Unexpected end of file!");
         stream.get(c);
 
         return c;
@@ -140,7 +141,7 @@ namespace json {
     void Tokenizer::expectCharacter(char e) {
         char c = getCharacter();
         if (c != e)
-            throw std::runtime_error("Unexpected character!");
+            throw Exception("Unexpected character!");
     }
 
     Token Tokenizer::GetCurrentToken() {

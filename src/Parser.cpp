@@ -3,6 +3,7 @@
 //
 
 #include "json/Parser.hpp"
+#include "json/Exception.hpp"
 
 namespace json {
     Parser::Parser(const std::string& filename) : tokenizer(filename) {
@@ -13,7 +14,7 @@ namespace json {
         root = parseToken();
 
         if (!tokenizer.TokensEnded())
-            throw std::runtime_error("Bad json structure!");
+            throw Exception("Bad json structure!");
     }
 
     void Parser::parseNull() {
@@ -48,7 +49,7 @@ namespace json {
 
         Token token = tokenizer.GetToken();
         if (token.type != Token::SQUARE_OPEN)
-            throw std::runtime_error("Invalid array beginning!");
+            throw Exception("Invalid array beginning!");
 
         while (true){
             token = tokenizer.GetCurrentToken();
@@ -65,7 +66,7 @@ namespace json {
             else if (token.type == Token::COMMA)
                 continue;
             else
-                throw std::runtime_error("Invalid token sequence in array!");
+                throw Exception("Invalid token sequence in array!");
         }
 
         return std::move(array);
@@ -76,18 +77,18 @@ namespace json {
 
         Token token = tokenizer.GetToken();
         if (token.type != Token::CURLY_OPEN)
-            throw std::runtime_error("Invalid object beginning!");
+            throw Exception("Invalid object beginning!");
 
         while (true){
             auto key = tokenizer.GetToken();
             if (key.type == Token::CURLY_CLOSE)
                 break;
             if (key.type != Token::TokenType::STRING)
-                throw std::runtime_error("Invalid token sequence in object!");
+                throw Exception("Invalid token sequence in object!");
 
             auto colon = tokenizer.GetToken();
             if (colon.type != Token::TokenType::COLON)
-                throw std::runtime_error("Invalid token sequence in object!");
+                throw Exception("Invalid token sequence in object!");
 
             object[key.value] = parseToken();
             token = tokenizer.GetToken();
@@ -97,7 +98,7 @@ namespace json {
             else if (token.type == Token::COMMA)
                 continue;
             else
-                throw std::runtime_error("Invalid token sequence in object!");
+                throw Exception("Invalid token sequence in object!");
         }
 
         return std::move(object);
@@ -127,7 +128,7 @@ namespace json {
                 parseNull();
                 break;
             default:
-                throw std::runtime_error("Invalid sequence of tokens!");
+                throw Exception("Invalid sequence of tokens!");
         }
 
         return std::move(value);

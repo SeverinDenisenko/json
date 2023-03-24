@@ -1,4 +1,5 @@
 #include "json/JsonValue.hpp"
+#include "json/Exception.hpp"
 
 json::JsonValue::JsonValue(json::JsonObject object) {
     type = ValueType::OBJECT;
@@ -60,35 +61,35 @@ json::JsonValue::ValueType json::JsonValue::GetType() {
 
 json::JsonObject& json::JsonValue::GetObject() {
     if (type != ValueType::OBJECT)
-        throw std::runtime_error("Can't get object!");
+        throw Exception("Can't get object!");
 
     return std::get<JsonObject>(value);
 }
 
 json::JsonArray& json::JsonValue::GetArray() {
     if (type != ValueType::ARRAY)
-        throw std::runtime_error("Can't get array!");
+        throw Exception("Can't get array!");
 
     return std::get<JsonArray>(value);
 }
 
 json::JsonNumber& json::JsonValue::GetNumber() {
     if (type != ValueType::NUMBER)
-        throw std::runtime_error("Can't get number!");
+        throw Exception("Can't get number!");
 
     return std::get<JsonNumber>(value);
 }
 
 json::JsonString& json::JsonValue::GetString() {
     if (type != ValueType::STRING)
-        throw std::runtime_error("Can't get string!");
+        throw Exception("Can't get string!");
 
     return std::get<JsonString>(value);
 }
 
 json::JsonBoolean& json::JsonValue::GetBoolean() {
     if (type != ValueType::BOOLEAN)
-        throw std::runtime_error("Can't get boolean!");
+        throw Exception("Can't get boolean!");
 
     return std::get<JsonBoolean>(value);
 }

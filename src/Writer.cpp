@@ -6,6 +6,7 @@
 #include <fstream>
 
 #include "json/Writer.hpp"
+#include "json/Exception.hpp"
 
 namespace json {
     Writer::Writer(std::string filename) : filename(std::move(filename)) {
@@ -14,6 +15,9 @@ namespace json {
 
     void Writer::Write(JsonValue& root) {
         stream.open(filename);
+
+        if (!stream)
+            throw Exception("Can't open file for write!");
 
         writeToStream(root);
 

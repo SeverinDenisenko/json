@@ -37,6 +37,12 @@ namespace json{
 
         ValueType GetType();
 
+        const JsonObject& GetObject() const;
+        const JsonArray& GetArray() const;
+        const JsonNumber& GetNumber() const;
+        const JsonString& GetString() const;
+        const JsonBoolean& GetBoolean() const;
+
         JsonObject& GetObject();
         JsonArray& GetArray();
         JsonNumber& GetNumber();
@@ -48,6 +54,18 @@ namespace json{
         void Set(JsonNumber number);
         void Set(JsonString string);
         void Set(JsonBoolean boolean);
+
+        JsonValue& operator[](const std::string& string);
+        JsonValue& operator[](const std::size_t& index);
+
+        const JsonValue& operator[](const std::string& string) const;
+        const JsonValue& operator[](const std::size_t& index) const;
+
+        JsonValue& operator=(JsonObject object);
+        JsonValue& operator=(JsonArray array);
+        JsonValue& operator=(JsonNumber number);
+        JsonValue& operator=(JsonString string);
+        JsonValue& operator=(JsonBoolean boolean);
     private:
         using Value = std::variant<JsonObject, JsonArray, JsonNumber, JsonString, JsonBoolean>;
         Value value;

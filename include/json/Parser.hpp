@@ -16,10 +16,11 @@ namespace json {
     public:
         explicit Parser(const std::string& filename);
 
-        void Parse();
-
-        JsonValue root;
+        JsonValue Parse();
     private:
+        JsonValue root;
+        Tokenizer tokenizer;
+
         JsonObject parseObject();
         JsonArray parseArray();
         JsonNumber parseNumber();
@@ -28,8 +29,6 @@ namespace json {
         void parseNull();
 
         JsonValue parseToken();
-
-        Tokenizer tokenizer;
     };
 
 } // json

@@ -10,11 +10,13 @@ namespace json {
 
     }
 
-    void Parser::Parse() {
+    JsonValue Parser::Parse() {
         root = parseToken();
 
         if (!tokenizer.TokensEnded())
             throw Exception("Bad json structure!");
+
+        return root;
     }
 
     void Parser::parseNull() {

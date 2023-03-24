@@ -21,25 +21,25 @@ namespace json {
     void Writer::writeToStream(JsonValue& value) {
         switch (value.GetType()) {
             case JsonValue::ValueType::OBJECT:
-                stream << "{\n";
+                stream << "{";
                 for (auto i = value.GetObject().begin(); i != value.GetObject().end();) {
                     stream << '"' << i->first << '"' << ": ";
                     writeToStream(i->second);
                     ++i;
                     if (i != value.GetObject().end())
-                        stream << ",\n";
+                        stream << ", ";
                 }
-                stream << "}\n";
+                stream << "}";
                 break;
             case JsonValue::ValueType::ARRAY:
-                stream << "[\n";
+                stream << "[";
                 for (auto i = value.GetArray().begin(); i != value.GetArray().end();) {
                     writeToStream(*i);
                     ++i;
                     if (i != value.GetArray().end())
-                        stream << ",\n";
+                        stream << ", ";
                 }
-                stream << "\n]\n";
+                stream << "]";
                 break;
             case JsonValue::ValueType::NUMBER:
                 stream << value.GetNumber();

@@ -51,6 +51,12 @@ namespace json {
             throw std::runtime_error("Invalid array beginning!");
 
         while (true){
+            token = tokenizer.GetCurrentToken();
+            if (token.type == Token::SQUARE_CLOSE){
+                tokenizer.GetToken();
+                break;
+            }
+
             array.push_back(std::move(parseToken()));
 
             token = tokenizer.GetToken();

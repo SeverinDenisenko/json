@@ -16,6 +16,8 @@ namespace json {
         stream.open(filename);
 
         writeToStream(root);
+
+        stream.close();
     }
 
     void Writer::writeToStream(JsonValue& value) {

@@ -130,6 +130,6 @@ namespace json {
                 throw std::runtime_error("Invalid sequence of tokens!");
         }
 
-        return value;
+        return std::move(value);
     }
 } // json

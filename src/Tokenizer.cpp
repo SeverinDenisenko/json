@@ -108,7 +108,7 @@ namespace json {
                 break;
         }
 
-        return std::move(token);
+        return token;
     }
 
     bool Tokenizer::TokensEnded() {
@@ -149,6 +149,6 @@ namespace json {
         Token token = GetToken();
         stream.seekg(position);
 
-        return std::move(token);
+        return token;
     }
 } // json

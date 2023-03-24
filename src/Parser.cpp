@@ -25,9 +25,9 @@ namespace json {
         Token token = tokenizer.GetToken();
 
         if (token.value == "true")
-            return std::move(JsonBoolean(true));
+            return JsonBoolean(true);
         else if (token.value == "false")
-            return std::move(JsonBoolean(false));
+            return JsonBoolean(false);
 
         throw std::runtime_error("Wtf?");
     }
@@ -35,13 +35,13 @@ namespace json {
     JsonString Parser::parseString() {
         Token token = tokenizer.GetToken();
 
-        return std::move(JsonString(token.value));
+        return JsonString(token.value);
     }
 
     JsonNumber Parser::parseNumber() {
         Token token = tokenizer.GetToken();
 
-        return std::move(JsonNumber(std::stod(token.value)));
+        return JsonNumber(std::stod(token.value));
     }
 
     JsonArray Parser::parseArray() {
@@ -58,7 +58,7 @@ namespace json {
                 break;
             }
 
-            array.push_back(std::move(parseToken()));
+            array.push_back(parseToken());
 
             token = tokenizer.GetToken();
             if (token.type == Token::SQUARE_CLOSE)
@@ -69,7 +69,7 @@ namespace json {
                 throw Exception("Invalid token sequence in array!");
         }
 
-        return std::move(array);
+        return array;
     }
 
     JsonObject Parser::parseObject() {
@@ -101,7 +101,7 @@ namespace json {
                 throw Exception("Invalid token sequence in object!");
         }
 
-        return std::move(object);
+        return object;
     }
 
     JsonValue Parser::parseToken() {
@@ -110,19 +110,19 @@ namespace json {
 
         switch (token.type) {
             case Token::CURLY_OPEN:
-                value.Set(std::move(parseObject()));
+                value.Set(parseObject());
                 break;
             case Token::SQUARE_OPEN:
-                value.Set(std::move(parseArray()));
+                value.Set(parseArray());
                 break;
             case Token::STRING:
-                value.Set(std::move(parseString()));
+                value.Set(parseString());
                 break;
             case Token::BOOLEAN:
-                value.Set(std::move(parseBoolean()));
+                value.Set(parseBoolean());
                 break;
             case Token::NUMBER:
-                value.Set(std::move(parseNumber()));
+                value.Set(parseNumber());
                 break;
             case Token::NULL_TYPE:
                 parseNull();
@@ -131,6 +131,6 @@ namespace json {
                 throw Exception("Invalid sequence of tokens!");
         }
 
-        return std::move(value);
+        return value;
     }
 } // json
